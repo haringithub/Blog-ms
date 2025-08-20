@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lively Blog Website</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: #87cefa;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #000000, #050d1a);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      position: relative;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Particle Canvas */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px 10px;
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+      color: #00e5ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .search-bar {
+      margin-bottom: 25px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #00e5ff;
+      background: #050d1a;
+      color: #87cefa;
+      transition: 0.3s;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: #39ff14;
+      box-shadow: 0 0 12px #39ff14;
+    }
+
+    .blog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .blog-card {
+      background: #0a0f1c;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,229,255,0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #00e5ff;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px rgba(0,229,255,0.6);
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      filter: brightness(0.85);
+      transition: 0.4s;
+    }
+
+    .blog-card:hover img {
+      filter: brightness(1);
+      transform: scale(1.05);
+    }
+
+    .blog-card .content {
+      padding: 18px;
+      flex: 1;
+    }
+
+    .blog-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #00e5ff;
+      background: #111c2e;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      text-shadow: 0 0 6px #00e5ff;
+    }
+
+    .blog-card p {
+      font-size: 14px;
+      color: #b0c7d1;
+      line-height: 1.5;
+    }
+
+    .blog-card button {
+      margin: 15px;
+      padding: 12px;
+      border: none;
+      background: #00e5ff;
+      color: black;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .blog-card button:hover {
+      background: #39ff14;
+      color: black;
+      transform: scale(1.08);
+      box-shadow: 0 0 15px #39ff14;
+    }
+
+    .blog-details {
+      display: none;
+      background: #0a0f1c;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,229,255,0.4);
+      margin-top: 20px;
+      animation: fadeIn 0.8s ease-in-out;
+      color: #d0f0ff;
+    }
+
+    .blog-details h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00e5ff;
+      text-shadow: 0 0 8px #00e5ff;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 10px 18px;
+      background: #ff006e;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #ff4f81;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="particle-canvas"></canvas>
+
+<header>Lively Tech Blog</header>
+
+<div class="container">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Search blogs...">
+  </div>
+
+  <div id="blogList" class="blog-list"></div>
+  <div id="blogDetails" class="blog-details"></div>
+</div>
+
+<script>
+// Load blogs from blogs.json
+let blogs = [];
+
+fetch('blogs.json')
+  .then(response => response.json())
+  .then(data => {
+    blogs = data;
+    displayBlogs();
+  });
+
+const blogList = document.getElementById("blogList");
+const blogDetails = document.getElementById("blogDetails");
+const searchInput = document.getElementById("searchInput");
+
+function displayBlogs(filter="") {
+  blogList.innerHTML = "";
+  blogDetails.style.display = "none";
+  const filteredBlogs = blogs.filter(blog =>
+    blog.title.toLowerCase().includes(filter.toLowerCase()) ||
+    blog.description.toLowerCase().includes(filter.toLowerCase())
+  );
+  filteredBlogs.forEach(blog => {
+    const blogCard = document.createElement("div");
+    blogCard.className = "blog-card";
+    blogCard.innerHTML = `
+      <img src="${blog.image}" alt="${blog.title}">
+      <div class="content">
+        <h3>${blog.title}</h3>
+        <p>${blog.description}</p>
+        <button onclick="viewBlog(${blog.id})">Read More</button>
+      </div>
+    `;
+    blogList.appendChild(blogCard);
+  });
+}
+
+function viewBlog(id) {
+  const blog = blogs.find(b => b.id === id);
+  blogList.innerHTML = "";
+  blogDetails.style.display = "block";
+  blogDetails.innerHTML = `
+    <a class="back-btn" onclick="displayBlogs()">← Back to Blogs</a>
+    <h2>${blog.title}</h2>
+    <img src="${blog.image}" alt="${blog.title}" style="width:100%; max-height:300px; object-fit:cover; border-radius:10px; margin-top:10px;">
+    <p style="margin-top:15px; line-height:1.8;">${blog.content}</p>
+  `;
+}
+
+searchInput.addEventListener("input", (e) => {
+  displayBlogs(e.target.value);
+});
+
+// Particle Animation
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particlesArray;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', function() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  init();
+});
+
+class Particle {
+  constructor(x, y, size, speedX, speedY) {
+    this.x = x; this.y = y;
+    this.size = size;
+    this.speedX = speedX;
+    this.speedY = speedY;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.size > 0.2) this.size -= 0.1;
+  }
+  draw() {
+    ctx.fillStyle = '#00e5ff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function init() {
+  particlesArray = [];
+  for (let i = 0; i < 120; i++) {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const size = Math.random() * 3 + 1;
+    const speedX = (Math.random() * 1) - 0.5;
+    const speedY = (Math.random() * 1) - 0.5;
+    particlesArray.push(new Particle(x, y, size, speedX, speedY));
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].update();
+    particlesArray[i].draw();
+  }
+  requestAnimationFrame(animate);
+}
+
+init();
+animate();
+</script>
+</body>
+</html>

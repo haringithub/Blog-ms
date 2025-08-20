@@ -1,0 +1,12 @@
+[
+  {"id":1,"title":"AI in 2025","description":"How Artificial Intelligence will shape the future.","image":"https://picsum.photos/600/400?random=11","content":"AI is revolutionizing industries. From self-driving cars to smart assistants, the possibilities are endless."},
+  {"id":2,"title":"Top 10 Coding Tips","description":"Improve your coding skills with these tips.","image":"https://picsum.photos/600/400?random=12","content":"Practice daily, understand algorithms, contribute to open source, and write clean code."},
+  {"id":3,"title":"Future of Space Tech","description":"Exploring Mars, moon bases, and beyond.","image":"https://picsum.photos/600/400?random=13","content":"Space technology is advancing rapidly with reusable rockets and upcoming Mars missions."},
+  {"id":4,"title":"Cybersecurity Trends","description":"Top security measures for 2025.","image":"https://picsum.photos/600/400?random=14","content":"Cybersecurity is crucial. Use MFA, secure passwords, and stay updated with patches."},
+  {"id":5,"title":"Quantum Computing","description":"How quantum tech will change computing.","image":"https://picsum.photos/600/400?random=15","content":"Quantum computers can solve problems traditional computers can't handle in reasonable time."},
+  {"id":6,"title":"Web Design Trends","description":"Modern UI/UX styles for 2025.","image":"https://picsum.photos/600/400?random=16","content":"Dark mode, glassmorphism, and animated gradients dominate 2025 design trends."},
+  {"id":7,"title":"Blockchain Beyond Crypto","description":"Uses of blockchain in other industries.","image":"https://picsum.photos/600/400?random=17","content":"Blockchain is now used for supply chain, identity verification, and voting systems."},
+  {"id":8,"title":"AR & VR Revolution","description":"Mixed reality transforming experiences.","image":"https://picsum.photos/600/400?random=18","content":"AR and VR will impact education, gaming, and remote work drastically."},
+  {"id":9,"title":"5G and IoT","description":"Ultra-fast networks powering smart devices.","image":"https://picsum.photos/600/400?random=19","content":"5G enables low-latency connections for autonomous vehicles and smart cities."},
+  {"id":10,"title":"Career in Tech","description":"Top tech jobs for 2025 and beyond.","image":"https://picsum.photos/600/400?random=20","content":"AI engineer, cybersecurity expert, and data scientist remain in high demand."}
+]
